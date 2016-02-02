@@ -41,4 +41,24 @@ describe("Order", function() {
     expect(order.runningTotal).toEqual(84);
   });
 
+  it("should not be able to add a £5.00 discount when basket is empty", function() {
+    order.applyDiscount("five");
+    expect(order.runningTotal).toEqual(0);
+    expect(order.voucherFiveError).toBe(true);
+  });
+
+  it("should not be able to add a £10.00 discount when basket is fewer than £50.00", function() {
+    order.addProduct(1);
+    order.applyDiscount("ten");
+    expect(order.runningTotal).toEqual(42);
+    expect(order.voucherTenError).toBe(true);
+  });
+
+  it("should not be able to add a £10.00 discount when basket is fewer than £50.00", function() {
+    order.addProduct(1);
+    order.applyDiscount("fifteen");
+    expect(order.runningTotal).toEqual(42);
+    expect(order.voucherFifteenError).toBe(true);
+  });
+
 });

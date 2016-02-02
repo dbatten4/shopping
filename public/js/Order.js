@@ -20,6 +20,9 @@ Order.prototype.applyDiscount = function(number) {
     ten: 10,
     fifteen: 15
   };
+  if (number === "five" && this.runningTotal < 5) { return this.voucherFiveError = true };
+  if (number === "ten" && this.runningTotal < 50) { return this.voucherTenError = true };
+  if (number === "fifteen" && this.runningTotal < 75) { return this.voucherFifteenError = true };
   return this.runningTotal -= discount[number];
 };
 
