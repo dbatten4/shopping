@@ -61,4 +61,10 @@ describe("Order", function() {
     expect(order.voucherFifteenError).toBe(true);
   });
 
+  it("should not allow out of stock items to be added to basket", function() {
+    order.addProduct(4);
+    expect(order.shoppingCart[0]).not.toBeDefined();
+    expect(order.stockError).toBe(true);
+  });
+
 });

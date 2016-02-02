@@ -4,6 +4,8 @@ Order = function() {
 };
 
 Order.prototype.addProduct = function(productID) {
+  var product = findById(productID);
+  if (parseInt(product.quantity) == 0 ) { return this.stockError = true }
   this.shoppingCart.push(productID);
   return this.runningTotal = calculateRunningTotal(this.shoppingCart);
 };
