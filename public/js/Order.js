@@ -1,16 +1,17 @@
 Order = function() {
   this.shoppingCart = [];
+  this.runningTotal = 0;
 };
 
 Order.prototype.addProduct = function(productID) {
-  var product = findById(productID);
-  return this.shoppingCart.push(product.name);
+  this.shoppingCart.push(productID);
+  return this.runningTotal = calculateRunningTotal(this.shoppingCart);
 };
 
 Order.prototype.removeProduct = function(productID) {
-  var product = findById(productID);
-  var index = this.shoppingCart.indexOf(product.name);
-  return this.shoppingCart.splice(index, 1);
+  var index = this.shoppingCart.indexOf(productID);
+  this.shoppingCart.splice(index, 1);
+  return this.runningTotal = calculateRunningTotal(this.shoppingCart);
 };
 
 function findById(id) {
@@ -19,3 +20,11 @@ function findById(id) {
   })[0];
 };
 
+function calculateRunningTotal(cart) {
+  var sum = 0;
+  for (var i = 0; i < cart.length; i++) {
+    var price = parseFloat(findById(cart[i]).price);
+    sum += price;
+  };
+  return sum
+};
