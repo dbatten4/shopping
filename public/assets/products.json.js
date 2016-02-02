@@ -1,7 +1,7 @@
 var productData = [
   {
     "id":"0",
-    "product":"Almond Toe Court Shoes",
+    "name":"Almond Toe Court Shoes",
     "colour":"Patent Black",
     "category":"Footwear",
     "gender":"Women's",
@@ -10,7 +10,7 @@ var productData = [
   },
   {
     "id":"1",
-    "product":"Suede Shoes",
+    "name":"Suede Shoes",
     "colour":"Blue",
     "category":"Footwear",
     "gender":"Women's",
@@ -19,7 +19,7 @@ var productData = [
   },
   {
     "id":"2",
-    "product":"Leather Driver Saddle Loafers",
+    "name":"Leather Driver Saddle Loafers",
     "colour":"Tan",
     "category":"Footwear",
     "gender":"Men's",
@@ -28,7 +28,7 @@ var productData = [
   },
   {
     "id":"3",
-    "product":"Flip Flops",
+    "name":"Flip Flops",
     "colour":"Red",
     "category":"Footwear",
     "gender":"Men's",
@@ -37,7 +37,7 @@ var productData = [
   },
   {
     "id":"4",
-    "product":"Flip Flops",
+    "name":"Flip Flops",
     "colour":"Blue",
     "category":"Footwear",
     "gender":"Men's",
@@ -46,7 +46,7 @@ var productData = [
   },
   {
     "id":"5",
-    "product":"Gold Button Cardigan",
+    "name":"Gold Button Cardigan",
     "colour":"Black",
     "category":"Casualwear",
     "gender":"Women's",
@@ -55,7 +55,7 @@ var productData = [
   },
   {
     "id":"6",
-    "product":"Cotton Shorts",
+    "name":"Cotton Shorts",
     "colour":"Medium Red",
     "category":"Casualwear",
     "gender":"Women's",
@@ -64,7 +64,7 @@ var productData = [
   },
   {
     "id":"7",
-    "product":"Fine Stripe Short Sleeve Shirt",
+    "name":"Fine Stripe Short Sleeve Shirt",
     "colour":"Grey",
     "category":"Casualwear",
     "gender":"Men's",
@@ -73,7 +73,7 @@ var productData = [
   },
   {
     "id":"8",
-    "product":"Fine Stripe Short Sleeve Shirt",
+    "name":"Fine Stripe Short Sleeve Shirt",
     "colour":"Green",
     "category":"Casualwear",
     "gender":"Men's",
@@ -83,7 +83,7 @@ var productData = [
   },
   {
     "id":"9",
-    "product":"Sharkskin Waistcoat",
+    "name":"Sharkskin Waistcoat",
     "colour":"Charcoal",
     "category":"Formalwear",
     "gender":"Men's",
@@ -92,7 +92,7 @@ var productData = [
   },
   {
     "id":"10",
-    "product":"Lightweight Patch Pocket Blazer",
+    "name":"Lightweight Patch Pocket Blazer",
     "colour":"Deer",
     "category":"Formalwear",
     "gender":"Men's",
@@ -101,7 +101,7 @@ var productData = [
   },
   {
     "id":"11",
-    "product":"Bird Print Dress",
+    "name":"Bird Print Dress",
     "colour":"Black",
     "category":"Formalwear",
     "gender":"Women's",
@@ -110,7 +110,7 @@ var productData = [
   },
   {
     "id":"11",
-    "product":"Mid Twist Cut-Out Dress",
+    "name":"Mid Twist Cut-Out Dress",
     "colour":"Pink",
     "category":"Formalwear",
     "gender":"Women's",
