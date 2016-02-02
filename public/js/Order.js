@@ -4,9 +4,13 @@ Order = function() {
 
 Order.prototype.addProduct = function(productID) {
   var product = findById(productID);
-  var cartObject = new Object;
-  cartObject[product.name] = 1;
-  this.shoppingCart.push(cartObject);
+  return this.shoppingCart.push(product.name);
+};
+
+Order.prototype.removeProduct = function(productID) {
+  var product = findById(productID);
+  var index = this.shoppingCart.indexOf(product.name);
+  return this.shoppingCart.splice(index, 1);
 };
 
 function findById(id) {
