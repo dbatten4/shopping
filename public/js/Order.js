@@ -21,7 +21,7 @@ Order.prototype.removeProduct = function(productID) {
 Order.prototype.applyDiscount = function(number) {
   if (number === "five" && this.runningTotal < 5) { return this.voucherFiveError = true };
   if (number === "ten" && this.runningTotal < 50) { return this.voucherTenError = true };
-  if (number === "fifteen" && this.runningTotal < 75) { return this.voucherFifteenError = true };
+  if (number === "fifteen" && voucherFifteenErrorCheck(this.shoppingCart, this.runningTotal)) { return this.voucherFifteenError = true };
   var discount = {
     five: 5,
     ten: 10,
@@ -45,3 +45,26 @@ function calculateRunningTotal(cart) {
   return sum
 };
 
+function voucherFifteenErrorCheck(cart, currentBasketTotal) {
+  if (currentBasketTotal < 75 || noFootwearIn(cart)) { return true };
+};
+
+function noFootwearIn(basket) {
+  var noFootwear = true;
+  for (var i = 0; i < basket.length; i++) {
+    if (findById(basket[i]).category == "Footwear") {
+      noFootwear = false;
+    };
+  };
+  return noFootwear;
+};
+
+/*
+ *function voucherErrorCheck(number, currentBasketTotal) {
+ *  if (number === "five" && currentBasketTotal < 5) {
+ *    var voucherErrorObject = {
+ *      type: 'five',
+ *      description: '
+ *    };
+ *};
+ */
