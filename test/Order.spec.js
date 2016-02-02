@@ -17,6 +17,12 @@ describe("Order", function() {
     expect(order.shoppingCart[0]).not.toBeDefined();
   });
 
+  it("doesn't remove an item not in the basket", function() {
+    order.addProduct(0);
+    order.removeProduct(1);
+    expect(order.shoppingCart[0]).toEqual(0);
+  });
+
   it("should be able to calculate the total price for the cart", function() {
     order.addProduct(0);
     order.addProduct(1);
