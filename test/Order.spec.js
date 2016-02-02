@@ -23,4 +23,22 @@ describe("Order", function() {
     expect(order.runningTotal).toEqual(141);
   });
 
+  it("can apply a £5.00 discount", function() {
+    order.addProduct(0);
+    order.applyDiscount("five");
+    expect(order.runningTotal).toEqual(94);
+  });
+
+  it("can apply a £10.00 discount", function() {
+    order.addProduct(0);
+    order.applyDiscount("ten");
+    expect(order.runningTotal).toEqual(89);
+  });
+
+  it("can apply a £15.00 discount", function() {
+    order.addProduct(0);
+    order.applyDiscount("fifteen");
+    expect(order.runningTotal).toEqual(84);
+  });
+
 });

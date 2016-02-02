@@ -14,6 +14,15 @@ Order.prototype.removeProduct = function(productID) {
   return this.runningTotal = calculateRunningTotal(this.shoppingCart);
 };
 
+Order.prototype.applyDiscount = function(number) {
+  var discount = {
+    five: 5,
+    ten: 10,
+    fifteen: 15
+  };
+  return this.runningTotal -= discount[number];
+};
+
 function findById(id) {
   return productData.filter(function(product) {
     return parseInt(product.id) === id;
