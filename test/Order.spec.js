@@ -50,21 +50,21 @@ describe("Order", function() {
   it("should not be able to add a £5.00 discount when basket is empty", function() {
     order.applyDiscount("five");
     expect(order.runningTotal).toEqual(0);
-    expect(order.voucherFiveError).toBe(true);
+    expect(order.voucherErrorObject.type).toEqual("five");
   });
 
   it("should not be able to add a £10.00 discount when basket is fewer than £50.00", function() {
     order.addProduct(1);
     order.applyDiscount("ten");
     expect(order.runningTotal).toEqual(42);
-    expect(order.voucherTenError).toBe(true);
+    expect(order.voucherErrorObject.type).toEqual("ten");
   });
 
   it("should not be able to add a £15.00 discount when basket is fewer than £75.00 and none of the items are footwear", function() {
     order.addProduct(6);
     order.applyDiscount("fifteen");
     expect(order.runningTotal).toEqual(30);
-    expect(order.voucherFifteenError).toBe(true);
+    expect(order.voucherErrorObject.type).toEqual("fifteen");
   });
 
   it("should not allow out of stock items to be added to basket", function() {
