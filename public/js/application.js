@@ -2,12 +2,6 @@ $(document).ready(function() {
   order = new Order();
   $('.basket').hide();
 
-  function findProductByIDFromArray(array, id) {
-    return array.filter(function(product) {
-      return parseInt(product.id) === id;
-    })[0];
-  };
-
   $.each(productData, function(_, product) {
     var appendItem =
       '<div class="product-container">'
@@ -29,18 +23,12 @@ $(document).ready(function() {
     $('.error').html(' ');
     var productID = parseInt($(this).attr('id'));
     order.addProduct(productID);
-    if (order.alreadyAdded) {
-      $(this).next().html('<span class="error"> This item has already been added</span>');
-      order.alreadyAdded = null;
-    };
-    if (order.stockError) {
-      $(this).next().html('<span class="error"> This item is out of stock</span>');
-      order.stockError = null;
-    };
+    addErrorCheck.call(this);
     updateShoppingCartDisplay();
   });
 
   $('.basket-items').on("click", "a.remove", function() {
+    $('.error').html(' ');
     var productID = parseInt($(this).attr('id'));
     order.removeProduct(productID);
     updateShoppingCartDisplay();
@@ -50,11 +38,7 @@ $(document).ready(function() {
     $('.error').html(' ');
     var number = $(this).attr('id');
     order.applyDiscount(number);
-    if (order.voucherErrorObject) {
-      $('.voucher-error-message').html('<span class="error">' + order.voucherErrorObject.message + '</span>');
-      order.voucherErrorObject = null;
-      return;
-    };
+    if (voucherErrorCheck()) { return };
     $(this).hide();
     $('.basket-price').text('£' + order.runningTotal.toFixed(2));
   });
@@ -62,6 +46,31 @@ $(document).ready(function() {
   $('a').click(function() {
     event.preventDefault();
   });
+
+  function findProductByIDFromArray(array, id) {
+    return array.filter(function(product) {
+      return parseInt(product.id) === id;
+    })[0];
+  };
+
+  function addErrorCheck() {
+    if (order.alreadyAdded) {
+      $(this).next().html('<span class="error"> This item has already been added</span>');
+      order.alreadyAdded = null;
+    };
+    if (order.stockError) {
+      $(this).next().html('<span class="error"> This item is out of stock</span>');
+      order.stockError = null;
+    };
+  };
+
+  function voucherErrorCheck() {
+    if (order.voucherErrorObject) {
+      $('.voucher-error-message').html('<span class="error">' + order.voucherErrorObject.message + '</span>');
+      order.voucherErrorObject = null;
+      return true;
+    };
+  };
 
   function updateShoppingCartDisplay() {
     basketCheck();
