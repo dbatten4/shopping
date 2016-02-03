@@ -27,7 +27,7 @@
   font-size: 1.2em;
 }
 
-.error {
+.error, .stock-error {
   color: red;
 }
 

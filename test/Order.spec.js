@@ -30,6 +30,11 @@ describe("Order", function() {
     expect(order.runningTotal).toEqual(141);
   });
 
+  it("should updated price correctly for discounted items", function() {
+    order.addProduct(8);
+    expect(order.runningTotal).toEqual(39.99);
+  });
+
   it("can apply a £5.00 discount", function() {
     order.addProduct(0);
     order.applyDiscount("five");

@@ -46,7 +46,8 @@ function isAlreadyInArray(array, item) {
 function calculateRunningTotal(cart) {
   var sum = 0;
   for (var i = 0; i < cart.length; i++) {
-    var price = parseFloat(findProductByIDFromArray(productData, cart[i]).price);
+    var product = findProductByIDFromArray(productData, cart[i])
+    var price = parseFloat(product.discounted) || parseFloat(product.price);
     sum += price;
   };
   return sum
