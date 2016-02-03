@@ -38,9 +38,7 @@ function findProductByIDFromArray(array, id) {
 };
 
 function isAlreadyInArray(array, item) {
-  if(array.indexOf(item) > -1) {
-    return true;
-  };
+  return array.indexOf(item) > -1;
 };
 
 function calculateRunningTotal(cart) {
@@ -54,11 +52,9 @@ function calculateRunningTotal(cart) {
 };
 
 function voucherErrorCheck(number, currentBasketTotal, cart) {
-  if (number === "five" && currentBasketTotal < 5 ||
-      number === "ten" && currentBasketTotal < 50 ||
-      number === "fifteen" && voucherFifteenErrorCheck(cart, currentBasketTotal)) {
-     return true
-   };
+  return (number === "five"    && currentBasketTotal < 5)  ||
+         (number === "ten"     && currentBasketTotal < 50) ||
+         (number === "fifteen" && voucherFifteenErrorCheck(cart, currentBasketTotal));
 };
 
 function getVoucherError(number) {
@@ -80,7 +76,7 @@ function getVoucherError(number) {
 };
 
 function voucherFifteenErrorCheck(cart, currentBasketTotal) {
-  if (currentBasketTotal < 75 || noFootwearIn(cart)) { return true };
+  return currentBasketTotal < 75 || noFootwearIn(cart);
 };
 
 function noFootwearIn(basket) {
