@@ -26,6 +26,7 @@ $(document).ready(function() {
   });
 
   $('.add').click(function() {
+    $('.error').html(' ');
     var productID = parseInt($(this).attr('id'));
     order.addProduct(productID);
     if (order.alreadyAdded) {
@@ -46,6 +47,7 @@ $(document).ready(function() {
   });
 
   $('.voucher').click(function() {
+    $('.error').html(' ');
     var number = $(this).attr('id');
     order.applyDiscount(number);
     if (order.voucherErrorObject) {
