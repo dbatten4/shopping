@@ -4,14 +4,15 @@ Order = function() {
 };
 
 Order.prototype.addProduct = function(productID) {
-  var product = findById(productID);
+  if (isAlreadyInArray(this.shoppingCart, productID)) { return this.alreadyAdded = true };
+  var product = findProductByIDFromArray(productData, productID);
   if (parseInt(product.quantity) == 0 ) { return this.stockError = true }
   this.shoppingCart.push(productID);
   return this.runningTotal = calculateRunningTotal(this.shoppingCart);
 };
 
 Order.prototype.removeProduct = function(productID) {
-  if (this.shoppingCart.indexOf(productID) > -1) {
+  if (isAlreadyInArray(this.shoppingCart, productID)) {
     var index = this.shoppingCart.indexOf(productID);
     this.shoppingCart.splice(index, 1);
     return this.runningTotal = calculateRunningTotal(this.shoppingCart);
@@ -30,16 +31,22 @@ Order.prototype.applyDiscount = function(number) {
   return this.runningTotal -= discount[number];
 };
 
-function findById(id) {
-  return productData.filter(function(product) {
+function findProductByIDFromArray(array, id) {
+  return array.filter(function(product) {
     return parseInt(product.id) === id;
   })[0];
+};
+
+function isAlreadyInArray(array, item) {
+  if(array.indexOf(item) > -1) {
+    return true;
+  };
 };
 
 function calculateRunningTotal(cart) {
   var sum = 0;
   for (var i = 0; i < cart.length; i++) {
-    var price = parseFloat(findById(cart[i]).price);
+    var price = parseFloat(findProductByIDFromArray(productData, cart[i]).price);
     sum += price;
   };
   return sum
@@ -81,7 +88,7 @@ function voucherFifteenErrorCheck(cart, currentBasketTotal) {
 function noFootwearIn(basket) {
   var noFootwear = true;
   for (var i = 0; i < basket.length; i++) {
-    if (findById(basket[i]).category == "Footwear") {
+    if (findProductByIDFromArray(productData, basket[i]).category == "Footwear") {
       noFootwear = false;
     };
   };

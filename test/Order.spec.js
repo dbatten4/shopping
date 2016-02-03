@@ -11,10 +11,11 @@ describe("Order", function() {
     expect(order.shoppingCart[0]).toEqual(0);
   });
 
-  it("should be able to remove a product from the shopping basket", function() {
+  it("should not be able to add a product already in the cart", function() {
     order.addProduct(0);
-    order.removeProduct(0);
-    expect(order.shoppingCart[0]).not.toBeDefined();
+    order.addProduct(0);
+    expect(order.shoppingCart[1]).not.toBeDefined();
+    expect(order.alreadyAdded).toBe(true);
   });
 
   it("doesn't remove an item not in the basket", function() {

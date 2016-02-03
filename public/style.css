@@ -1,0 +1,77 @@
+.container {
+  height: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.basket {
+  position: fixed;
+  width: 200px;
+  height: 100%;
+  float: left;
+  display: inline-block;
+}
+
+.product-area {
+  width: 75%;
+  float: right;
+  display: inline-block;
+}
+
+.product-container {
+  margin: 20px 0;
+}
+
+.name {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.error {
+  color: red;
+}
+
+.colour {
+  font-style: italic;
+  font-size: 0.9em;
+  padding: 5px;
+}
+
+.voucher {
+  display: block;
+}
+
+.basket-price {
+  margin: 20px 0;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.basket-title {
+  font-weight: bold;
+  font-size: 1.5em;
+  padding-top: 20px;
+}
+
+.add-error {
+  display: inline-block;
+  padding-left: 10px;
+}
+
+@media (max-width: 800px)
+{
+  .basket, .product-area {
+    padding-left: 15%;
+  }
+
+  .basket {
+    width: 80%;
+    position: static;
+  }
+
+  .product-area {
+    width: 100%;
+    float: left;
+  }
+}
+
