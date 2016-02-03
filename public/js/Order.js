@@ -21,11 +21,11 @@ Order.prototype.removeProduct = function(productID) {
 
 Order.prototype.applyDiscount = function(number) {
   if (voucherErrorCheck(number, this.runningTotal, this.shoppingCart)) {
-    return this.voucherErrorObject = getVoucherError(number, this.runningTotal, this.shoppingCart);
+    return this.voucherErrorObject = getVoucherError(number);
   }
   var discount = {
-    five: 5,
-    ten: 10,
+    five:    5,
+    ten:     10,
     fifteen: 15
   };
   return this.runningTotal -= discount[number];
@@ -47,7 +47,7 @@ function calculateRunningTotal(cart) {
   var sum = 0;
   for (var i = 0; i < cart.length; i++) {
     var product = findProductByIDFromArray(productData, cart[i])
-    var price = parseFloat(product.discounted) || parseFloat(product.price);
+    var price   = parseFloat(product.discounted) || parseFloat(product.price);
     sum += price;
   };
   return sum
@@ -61,25 +61,22 @@ function voucherErrorCheck(number, currentBasketTotal, cart) {
    };
 };
 
-function getVoucherError(number, currentBasketTotal, cart) {
-  if (number === "five" && currentBasketTotal < 5) {
-    return {
-      type: 'five',
-      message: 'Basket total must be more than £5.00'
-    };
+function getVoucherError(number) {
+  var errorReference = {
+       five: {
+              type:    'five',
+              message: 'Basket total must be more than £5.00'
+             },
+        ten: {
+              type:    'ten',
+              message: 'Basket total must be more than £50.00'
+             },
+    fifteen: {
+              type:    'fifteen',
+              message: 'Basket total must be more than £75.00 and have at least one footwear item'
+             }
   };
-  if (number === "ten" && currentBasketTotal < 50) {
-    return {
-      type: 'ten',
-      message: 'Basket total must be more than £50.00'
-    };
-  };
-  if (number === "fifteen" && voucherFifteenErrorCheck(cart, currentBasketTotal)) {
-    return {
-      type: 'fifteen',
-      message: 'Basket total must be more than £75.00 and have at least one footwear item'
-    };
-  };
+  return errorReference[number];
 };
 
 function voucherFifteenErrorCheck(cart, currentBasketTotal) {

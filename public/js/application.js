@@ -91,7 +91,7 @@ $(document).ready(function() {
       var product = findProductByIDFromArray(productData, id)
       var listItem =
         '<li class="basket-item">'
-        + product.name + ' <a href="#" class="remove" id="'+id+'">x</a>'
+        + '<a href="#" class="remove" id="'+id+'-remove">x</a> ' + product.name
       + '</li>';
       $('.basket-items').append(listItem);
     })
