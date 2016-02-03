@@ -22,6 +22,7 @@ describe("Order", function() {
     order.addProduct(0);
     order.removeProduct(1);
     expect(order.shoppingCart[0]).toEqual(0);
+    expect(order.shoppingCart.length).toEqual(1);
   });
 
   it("should be able to calculate the total price for the cart", function() {
@@ -66,10 +67,17 @@ describe("Order", function() {
     expect(order.voucherErrorObject.type).toEqual("ten");
   });
 
-  it("should not be able to add a £15.00 discount when basket is fewer than £75.00 and none of the items are footwear", function() {
-    order.addProduct(6);
+  it("should not be able to add a £15.00 discount when basket is fewer than £75.00", function() {
+    order.addProduct(1);
     order.applyDiscount("fifteen");
-    expect(order.runningTotal).toEqual(30);
+    expect(order.runningTotal).toEqual(42);
+    expect(order.voucherErrorObject.type).toEqual("fifteen");
+  });
+
+  it("should not be able to add a £15.00 discount when basket has no footwear items", function() {
+    order.addProduct(5);
+    order.applyDiscount("fifteen");
+    expect(order.runningTotal).toEqual(167);
     expect(order.voucherErrorObject.type).toEqual("fifteen");
   });
 
