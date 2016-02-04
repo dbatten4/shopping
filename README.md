@@ -8,6 +8,8 @@ certain conditions.
 
 ## Building and Running
 
+First ensure you have Node installed by running `node -v` from the command line.
+
 Run from your command line the following commands to clone the repo to your
 local machine, build and finally serve the app in a browser.
 ```
