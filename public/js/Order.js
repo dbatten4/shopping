@@ -4,7 +4,7 @@ Order = function() {
 };
 
 Order.prototype.addProduct = function(productID) {
-  if (isAlreadyInArray(this.shoppingCart, productID)) { return this.alreadyAdded = true };
+  if (isInArray(this.shoppingCart, productID)) { return this.alreadyAdded = true };
   var product = findProductByIDFromArray(productData, productID);
   if (parseInt(product.quantity) == 0 ) { return this.stockError = true }
   this.shoppingCart.push(productID);
@@ -12,7 +12,7 @@ Order.prototype.addProduct = function(productID) {
 };
 
 Order.prototype.removeProduct = function(productID) {
-  if (isAlreadyInArray(this.shoppingCart, productID)) {
+  if (isInArray(this.shoppingCart, productID)) {
     var index = this.shoppingCart.indexOf(productID);
     this.shoppingCart.splice(index, 1);
     return this.runningTotal = calculateRunningTotal(this.shoppingCart);
@@ -22,7 +22,7 @@ Order.prototype.removeProduct = function(productID) {
 Order.prototype.applyDiscount = function(number) {
   if (voucherErrorCheck(number, this.runningTotal, this.shoppingCart)) {
     return this.voucherErrorObject = getVoucherError(number);
-  }
+  };
   var discount = {
     five:    5,
     ten:     10,
@@ -37,18 +37,32 @@ function findProductByIDFromArray(array, id) {
   })[0];
 };
 
-function isAlreadyInArray(array, item) {
+function isInArray(array, item) {
   return array.indexOf(item) > -1;
 };
 
 function calculateRunningTotal(cart) {
-  var sum = 0;
-  for (var i = 0; i < cart.length; i++) {
-    var product = findProductByIDFromArray(productData, cart[i])
-    var price   = parseFloat(product.discounted) || parseFloat(product.price);
-    sum += price;
-  };
-  return sum
+  var pricesArray = convertArrayToFloats(mapIDToProperty('discounted', cart, 'price'));
+  return sumArray(pricesArray);
+};
+
+function mapIDToProperty(property, array, alternativeProperty) {
+  return array.map(function(id) {
+    var product = findProductByIDFromArray(productData, id);
+    return product[property] || product[alternativeProperty];
+  });
+};
+
+function convertArrayToFloats(array) {
+  return array.map(function(element) {
+    return parseFloat(element);
+  });
+};
+
+function sumArray(array) {
+  return array.reduce(function(prev, curr) {
+    return prev + curr;
+  }, 0);
 };
 
 function voucherErrorCheck(number, currentBasketTotal, cart) {
@@ -76,15 +90,10 @@ function getVoucherError(number) {
 };
 
 function voucherFifteenErrorCheck(cart, currentBasketTotal) {
-  return currentBasketTotal < 75 || noFootwearIn(cart);
+  return currentBasketTotal < 75 || !isValueIn(cart, 'category', 'Footwear');
 };
 
-function noFootwearIn(basket) {
-  var noFootwear = true;
-  for (var i = 0; i < basket.length; i++) {
-    if (findProductByIDFromArray(productData, basket[i]).category == "Footwear") {
-      noFootwear = false;
-    };
-  };
-  return noFootwear;
+function isValueIn(basket, property, searchTerm) {
+  var mappedArray = mapIDToProperty(property, basket);
+  return isInArray(mappedArray, searchTerm);
 };

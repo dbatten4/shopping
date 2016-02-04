@@ -4,7 +4,7 @@ $(document).ready(function() {
 
   $.each(productData, function(_, product) {
     var appendItem =
-      '<div class="product-container">'
+      '<div class="product-container" id="product-' + product.id + '">'
       + '<div class="title">'
         + '<span class="name">' + product.name + '</span>'
         + '<span class="colour">' + product.colour + '</span>'
@@ -22,7 +22,7 @@ $(document).ready(function() {
   });
 
   $('.add').click(function() {
-    $('.error').html(' ');
+    removeErrorMessages();
     var productID = parseInt($(this).attr('id'));
     order.addProduct(productID);
     addErrorCheck.call(this);
@@ -30,14 +30,15 @@ $(document).ready(function() {
   });
 
   $('.basket-items').on("click", "a.remove", function() {
-    $('.error').html(' ');
+    event.preventDefault();
+    removeErrorMessages();
     var productID = parseInt($(this).attr('id'));
     order.removeProduct(productID);
     updateShoppingCartDisplay();
   });
 
   $('.voucher').click(function() {
-    $('.error').html(' ');
+    removeErrorMessages();
     var number = $(this).attr('id');
     order.applyDiscount(number);
     if (voucherErrorCheck()) { return };
@@ -49,36 +50,26 @@ $(document).ready(function() {
     event.preventDefault();
   });
 
-  function findProductByIDFromArray(array, id) {
-    return array.filter(function(product) {
-      return parseInt(product.id) === id;
-    })[0];
-  };
-
   function discountAndStockCheck(product) {
     if (product.discounted) {
       $('#price-' + product.id).wrap("<strike>");
       $('#discounted-price-' + product.id).html(product.discounted);
     };
     if (parseInt(product.quantity) == 0) {
-      $('#' + product.id + '-add').next().html('<span class="stock-error"> This item is out of stock</span>');
+      $('#' + product.id + '-add').next().html(generateMessage('stock-error', 'This item is out of stock'));
     };
   };
 
   function addErrorCheck() {
     if (order.alreadyAdded) {
-      $(this).next().html('<span class="error"> This item has already been added</span>');
+      $(this).next().html(generateMessage('error', 'This item has already been added'));
       order.alreadyAdded = null;
-    };
-    if (order.stockError) {
-      $(this).next().html('<span class="stock-error"> This item is out of stock</span>');
-      order.stockError = null;
     };
   };
 
   function voucherErrorCheck() {
     if (order.voucherErrorObject) {
-      $('.voucher-error-message').html('<span class="error">' + order.voucherErrorObject.message + '</span>');
+      $('.voucher-error-message').html(generateMessage('error', order.voucherErrorObject.message));
       order.voucherErrorObject = null;
       return true;
     };
@@ -103,6 +94,14 @@ $(document).ready(function() {
       return $('.basket').show();
     };
     return $('.basket').hide();
+  };
+
+  function generateMessage(classType, message) {
+    return '<span class="' + classType + '"> ' + message + ' </span>';
+  };
+
+  function removeErrorMessages() {
+    return $('.error').html(' ');
   };
 
 });
