@@ -90,10 +90,7 @@ $(document).ready(function() {
   };
 
   function basketCheck() {
-    if( order.shoppingCart.length != 0) {
-      return $('.basket').show();
-    };
-    return $('.basket').hide();
+    return order.shoppingCart.length != 0 ? $('.basket').show() : $('.basket').hide();
   };
 
   function generateMessage(classType, message) {
