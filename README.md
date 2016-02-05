@@ -3,22 +3,22 @@
 This is a web app built in JavaScript, HTML and CSS using the jQuery library.
 The app displays a page with shopping items and a shopping cart. Items may be
 added to and removed from the basket with the total price updating accordingly
-on each addition / removal. Vouchers may also be applied to the cart based on
-certain conditions.
+on each addition / removal. Discount vouchers may also be applied to the cart 
+based on certain conditions.
 
-## Building and Running
+## Installation and Usage
 
 First ensure you have Node installed by running `node -v` from the command line.
 
 Run from your command line the following commands to clone the repo to your
-local machine, build and finally serve the app in a browser.
+local machine, install the dependencies and finally serve the app in a browser.
 ```
 git clone https://github.com/dbatten4/shopping.git
 cd shopping
 npm install
 npm start
-open http://localhost:3000/
 ```
+Then visit `http://localhost:3000/`
 
 ## Testing
 
@@ -30,6 +30,7 @@ npm test
 
 ## Layout
 
+The testing suite is located in the Order.spec.js file in the test directory.
 The business logic is located in the Order.js file in the public/js directory.
 It contains the logic for adding, removing and applying vouchers as well as
 error checking to prevent scenarios where, for example, the user tries to add an
