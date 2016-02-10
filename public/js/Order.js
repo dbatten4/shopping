@@ -24,8 +24,8 @@ Order.prototype.applyDiscount = function(number) {
     return this.voucherErrorObject = getVoucherError(number);
   };
   var discount = {
-    five:    5,
-    ten:     10,
+       five: 5,
+        ten: 10,
     fifteen: 15
   };
   return this.runningTotal -= discount[number];
